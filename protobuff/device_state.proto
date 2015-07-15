@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+package trillek.computer;
+
+/**
+ * Basic Device state message
+ */
+message DeviceState {
+    required uint32 dev_type = 1;
+    required uint32 dev_subtype = 2;
+    required uint32 dev_id = 3;
+    required uint32 dev_vendor_id = 4;
+
+    optional uint32 a = 5;
+    optional uint32 b = 6;
+    optional uint32 c = 7;
+    optional uint32 d = 8;
+    optional uint32 e = 9;
+
+    /**
+     * Message to store a generic property of a device
+     */
+    message DeviceProperty {
+        enum Type {
+            BOOL = 0;
+            STRING = 1;
+            INT = 2;
+            FLOAT = 3;
+            LONG = 4;
+        }
+
+        required Type type = 1;
+        required string name = 2;
+        oneof value {
+            bool bvalue = 3;
+            string svalue = 4;
+            uint32 ivalue = 5;
+            uint64 lvalue = 6;
+            float fvalue = 7;
+        }
+    }
+
+    // Storage of property keyed by name
+    repeated DeviceProperty properties = 10;
+
+    extensions 1000 to max;
+}
+
+
