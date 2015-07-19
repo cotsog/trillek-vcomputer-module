@@ -69,6 +69,9 @@ FILE(GLOB VCOMPUTER_SRC
     "src/*.cpp"
     "src/tr3200/*.cpp"
     "src/devices/*.cpp"
+    "src/*.cc"
+    "src/tr3200/*.cc"
+    "src/devices/*.cc"
     "src/*.hpp"
     "src/tr3200/*.hpp"
     "src/devices/*.hpp"
@@ -78,6 +81,9 @@ FILE(GLOB VCOMPUTER_SRC
     "include/*.hpp"
     "include/tr3200/*.hpp"
     "include/devices/*.hpp"
+    "include/*.h"
+    "include/tr3200/*.h"
+    "include/devices/*.h"
     )
 
 # Apply all configuration stuff to config.hpp.in

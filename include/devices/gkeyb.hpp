@@ -221,10 +221,6 @@ public:
 
     virtual void IACK ();
 
-	DECLDIR virtual void GetState(void* ptr, std::size_t& size) const;
-
-	DECLDIR virtual bool SetState(const void* ptr, std::size_t size);
-
     /* API exterior to the Virtual Computer (affects or afected by stuff outside
      *of the computer) */
 
@@ -263,7 +259,7 @@ public:
     }
 };
 
-    
+
 } // End of namespace gkeyboard
 } // End of namespace computer
 } // End of namespace trillek

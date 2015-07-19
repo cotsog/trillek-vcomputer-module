@@ -5,6 +5,15 @@ FILE(GLOB unit_test_files_src
     "*_test.cpp"
     )
 
+# Protobuffers stuff
+# TODO Enable this when we have a serialization unit tests
+#FIND_PACKAGE(Protobuf)
+#IF (NOT PROTOBUF_FOUND)
+#    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for serialization tests")
+#    LIST(REMOVE_ITEM unit_test_files_src "serialization_test.cpp")
+#ENDIF (NOT PROTOBUF_FOUND)
+
+
 # Links agains the static version if is enabled
 IF(BUILD_STATIC_VCOMPUTER)
     SET(VM_LINK_LIBS

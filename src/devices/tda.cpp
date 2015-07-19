@@ -177,41 +177,7 @@ bool TDADev::IsSyncDev() const {
     return false;
 }
 
-void TDADev::GetState (void* ptr, std::size_t& size) const {
-    if ( ptr != nullptr && size >= sizeof(TDAState) ) {
-        auto state = (TDAState*) ptr;
-        state->buffer_ptr = this->buffer_ptr;
-        state->font_ptr   = this->font_ptr;
-        state->vsync_msg  = this->vsync_msg;
-        state->a          = this->a;
-        state->b          = this->b;
-        state->d          = this->d;
-        state->e          = this->e;
-
-        state->do_vsync = this->do_vsync;
-    }
-} // GetState
-
-bool TDADev::SetState (const void* ptr, std::size_t size) {
-    if ( ptr != nullptr && size >= sizeof(TDAState) ) {
-        // Sanity check
-        auto state = (const TDAState*) ptr;
-        this->buffer_ptr = state->buffer_ptr;
-        this->font_ptr   = state->font_ptr;
-        this->vsync_msg  = state->vsync_msg;
-        this->a          = state->a;
-        this->b          = state->b;
-        this->d          = state->d;
-        this->e          = state->e;
-
-        this->do_vsync = state->do_vsync;
-
-        return true;
-    }
-
-    return false;
-} // SetState
-
 } // End of namespace tda
 } // End of namespace computer
 } // End of namespace trillek
+

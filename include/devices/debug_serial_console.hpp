@@ -111,10 +111,17 @@ public:
         return 0x00000000;
     }
 
-    virtual void GetState (void* ptr, std::size_t& size) const {
+    virtual void GetState (DeviceState* out) const {
+        Device::GetState(out);
+        out->set_a(this->a);
     }
 
-    virtual bool SetState (const void* ptr, std::size_t size) {
+    virtual bool SetState (const DeviceState* in) {
+        if (! Device::SetState(in)) {
+            return false;
+        }
+        this->a = in->a();
+
         return true;
     }
 
@@ -157,6 +164,7 @@ protected:
                                          // read a byte from the serial console
     std::function<void(Word)> onWrite; /// Callback when the computer try to
                                          // write a byte to the serial console
+
 };
 
 } // End of namespace computer

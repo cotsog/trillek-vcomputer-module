@@ -6,6 +6,9 @@ SET(BUILD_TOOLS_AUDIO  TRUE CACHE BOOL "Build Trillek VCOMPUTER tools with audio
 SET(X11_LIBRARIES "")
 SET(OSX_LIBRARIES "")
 
+# Protobuffers stuff
+FIND_PACKAGE(Protobuf)
+
 # FIND GLFW3 AND OPENGL libs
 FIND_PACKAGE(GLFW3)
 IF (NOT GLFW3_FOUND)
@@ -188,19 +191,26 @@ IF (OPENAL_ENABLE EQUAL 1)
 ENDIF (OPENAL_ENABLE EQUAL 1)
 
 # Main executable
-ADD_EXECUTABLE( vc
-    ./main.cpp
-    ${TOOL_OTHER_SRC}
-    )
-SET(TARGETS ${TARGETS} "vc")
+IF (PROTOBUF_FOUND)
+    ADD_EXECUTABLE( vc
+        ./main.cpp
+        ${TOOL_OTHER_SRC}
+        )
+    SET(TARGETS ${TARGETS} "vc")
 
-INCLUDE_DIRECTORIES( vc
-    ${MEDIA_INCLUDE_DIRS}
-    )
+    INCLUDE_DIRECTORIES( vc
+        ${MEDIA_INCLUDE_DIRS}
+        ${PROTOBUF_INCLUDE_DIR}
+        )
 
-TARGET_LINK_LIBRARIES( vc
-    ${MEDIA_LINK_LIBS}
-    )
+    TARGET_LINK_LIBRARIES( vc
+        ${MEDIA_LINK_LIBS}
+        ${PROTOBUF_LIBRARY}
+        )
+
+ELSE (PROTOBUF_FOUND)
+    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for toy emulator")
+ENDIF (PROTOBUF_FOUND)
 
 #pbm2font tool
 ADD_EXECUTABLE( pbm2tdafont

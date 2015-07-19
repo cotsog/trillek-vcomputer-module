@@ -104,10 +104,25 @@ public:
         return 0xBEEF55AA;
     }
 
-    virtual void GetState (void* ptr, std::size_t& size) const {
+    virtual void GetState (DeviceState* out) const {
+        Device::GetState(out);
+        out->set_a(this->a);
+        out->set_b(this->b);
+        out->set_c(this->c);
+        out->set_d(this->d);
+        out->set_e(this->e);
     }
 
-    virtual bool SetState (const void* ptr, std::size_t size) {
+    virtual bool SetState (const DeviceState* in) {
+        if (! Device::SetState(in)) {
+            return false;
+        }
+        this->a = in->a();
+        this->b = in->b();
+        this->c = in->c();
+        this->d = in->d();
+        this->e = in->e();
+
         return true;
     }
 

@@ -206,10 +206,6 @@ public:
 
     virtual void IACK ();
 
-    virtual void GetState (void* ptr, std::size_t& size) const;
-
-    virtual bool SetState (const void* ptr, std::size_t size);
-
     virtual bool IsSyncDev() const;
 
     // API exterior to the Virtual Computer (affects or afected by stuff outside

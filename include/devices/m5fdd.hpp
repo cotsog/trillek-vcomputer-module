@@ -175,25 +175,6 @@ public:
      */
     virtual void IACK ();
 
-    /*!
-     * Writes a copy of Device state in a chunk of memory pointer by ptr.
-     * \param[out] ptr Pointer were to write
-     * \param[in,out] size Size of the chunk of memory were can write. If is
-     * successful, it will be set to the size of the write data.
-     */
-	DECLDIR virtual void GetState(void* ptr, std::size_t& size) const {
-    }
-
-    /*!
-     * Sets the Device state.
-     * \param ptr[in] Pointer were read the state information
-     * \param size Size of the chunk of memory were will read.
-     * \return True if can read the State data from the pointer.
-     */
-	DECLDIR  virtual bool SetState(const void* ptr, std::size_t size) {
-        return true;
-    }
-
     //----------------------------------------------------
 
     /**

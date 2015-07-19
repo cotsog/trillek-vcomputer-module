@@ -8,6 +8,9 @@
 #ifndef __IDEVICE_HPP_
 #define __IDEVICE_HPP_ 1
 
+#include <cassert>
+
+#include "device_state.pb.h"
 #include "types.hpp"
 #include "vcomputer.hpp"
 #include "vc_dll.hpp"
@@ -147,20 +150,38 @@ public:
     }
 
     /**
-     * Writes a copy of Device state in a chunk of memory pointer by ptr.
-     * \param[out] ptr Pointer were to write
+     * Writes a copy of Device state on a DeviceState object.
+     * \param[out] ptr DeviceState object to be write
      * \param[in,out] size Size of the chunk of memory were can write. If is
      * sucesfull, it will be set to the size of the write data.
      */
-    virtual void GetState (void* ptr, std::size_t& size) const = 0;
+    virtual void GetState (DeviceState* out) const {
+        assert(out != nullptr);
+
+        out->set_dev_type(this->DevType());
+        out->set_dev_subtype(this->DevSubType());
+        out->set_dev_id(this->DevID());
+        out->set_dev_vendor_id(this->DevVendorID());
+    }
 
     /**
      * Sets the Device state.
-     * \param ptr[in] Pointer were read the state information
+     * \param ptr[in] DeviceState with the state information
      * \param size Size of the chunk of memory were will read.
      * \return True if can read the State data from the pointer.
      */
-    virtual bool SetState (const void* ptr, std::size_t size) = 0;
+    virtual bool SetState (const DeviceState* in) {
+        if (in == nullptr && ! in ->IsInitialized()) {
+            return false;
+        }
+        if ( (in->dev_type() != this->DevType()) ||
+             (in->dev_subtype() != this->DevSubType()) ||
+             (in->dev_id() != this->DevID()) ||
+             (in->dev_vendor_id() != this->DevVendorID()) ) {
+            return false; // Not the same device
+        }
+
+    }
 
 protected:
 

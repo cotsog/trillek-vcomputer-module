@@ -52,6 +52,9 @@ public:
      */
     void IACK ();
 
+    // TODO Load/Save state methods
+
+private:
     DWord tmr0; /// Timer 0
     DWord tmr1; /// Timer 1
 

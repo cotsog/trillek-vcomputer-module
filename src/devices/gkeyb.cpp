@@ -84,6 +84,7 @@ void GKeyboardDev::IACK () {
     do_int = false; // Acepted, so we can forgot now of sending it again
 }
 
+/*
 void GKeyboardDev::GetState (void* ptr, std::size_t& size) const {
     if ( ptr != nullptr && size >= sizeof(GKeyboardState) ) {
         auto state = (GKeyboardState*) ptr;
@@ -120,7 +121,7 @@ bool GKeyboardDev::SetState (const void* ptr, std::size_t size) {
 
     return false;
 } // SetState
-
+*/
 
 } // End of namespace gkeyboard
 } // End of namespace computer
