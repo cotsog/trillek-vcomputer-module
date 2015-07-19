@@ -180,7 +180,7 @@ public:
              (in->dev_vendor_id() != this->DevVendorID()) ) {
             return false; // Not the same device
         }
-
+        return true;
     }
 
 protected:

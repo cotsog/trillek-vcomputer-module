@@ -6,12 +6,11 @@ FILE(GLOB unit_test_files_src
     )
 
 # Protobuffers stuff
-# TODO Enable this when we have a serialization unit tests
-#FIND_PACKAGE(Protobuf)
-#IF (NOT PROTOBUF_FOUND)
-#    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for serialization tests")
-#    LIST(REMOVE_ITEM unit_test_files_src "serialization_test.cpp")
-#ENDIF (NOT PROTOBUF_FOUND)
+FIND_PACKAGE(Protobuf)
+IF (NOT PROTOBUF_FOUND)
+    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for serialization tests")
+    LIST(REMOVE_ITEM unit_test_files_src "serialization_test.cpp")
+ENDIF (NOT PROTOBUF_FOUND)
 
 
 # Links agains the static version if is enabled
@@ -42,6 +41,7 @@ IF(GTEST_FOUND)
     include_directories( unit_test
         ${VCOMPUTER_INCLUDE_DIRS}
         ${GTEST_INCLUDE_DIRS}
+        ${PROTOBUF_INCLUDE_DIR}
         )
 
     add_executable( unit_test
@@ -53,6 +53,7 @@ IF(GTEST_FOUND)
         ${GTEST_LIBRARIES}
         ${GTEST_MAIN_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
+        ${PROTOBUF_LIBRARY}
         )
 
     add_test(unit_tests ../unit_test)
