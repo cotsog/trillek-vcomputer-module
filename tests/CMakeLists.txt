@@ -7,126 +7,132 @@ FILE(GLOB unit_test_files_src
 
 # Protobuffers stuff
 FIND_PACKAGE(Protobuf)
-IF (NOT PROTOBUF_FOUND)
-    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for serialization tests")
-    LIST(REMOVE_ITEM unit_test_files_src "serialization_test.cpp")
-ENDIF (NOT PROTOBUF_FOUND)
+IF(PROTOBUF_FOUND)
+
+    # Links agains the static version if is enabled
+    IF(BUILD_STATIC_VCOMPUTER)
+        SET(VM_LINK_LIBS
+          VCOMPUTER_STATIC
+          )
+    ELSEIF(BUILD_DYNAMIC_VCOMPUTER)
+        SET(VM_LINK_LIBS
+          VCOMPUTER
+          )
+    ENDIF(BUILD_STATIC_VCOMPUTER)
+
+    FIND_PACKAGE(GTEST)
+    FIND_PACKAGE(GTEST_MAIN)
+    IF(NOT GTEST_FOUND AND DEFINED ENV{GTEST_ROOT})
+      # FindGTEST could fail if gtest is not compiled
+        ADD_SUBDIRECTORY($ENV{GTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/gtest)
+    ENDIF(NOT GTEST_FOUND AND DEFINED ENV{GTEST_ROOT})
 
 
-# Links agains the static version if is enabled
-IF(BUILD_STATIC_VCOMPUTER)
-    SET(VM_LINK_LIBS
-      VCOMPUTER_STATIC
-      )
-ELSEIF(BUILD_DYNAMIC_VCOMPUTER)
-    SET(VM_LINK_LIBS
-      VCOMPUTER
-      )
-ENDIF(BUILD_STATIC_VCOMPUTER)
+    IF(GTEST_FOUND)
+        message(" ... using gtest found by FindGTest")
+        FIND_PACKAGE(Threads REQUIRED)
 
-FIND_PACKAGE(GTEST)
-FIND_PACKAGE(GTEST_MAIN)
-IF(NOT GTEST_FOUND AND DEFINED ENV{GTEST_ROOT})
-  # FindGTEST could fail if gtest is not compiled
-    ADD_SUBDIRECTORY($ENV{GTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/gtest)
-ENDIF(NOT GTEST_FOUND AND DEFINED ENV{GTEST_ROOT})
+        set(test_EXECUTABLE unit_test)
+
+        include_directories( unit_test
+            ${VCOMPUTER_INCLUDE_DIRS}
+            ${GTEST_INCLUDE_DIRS}
+            ${PROTOBUF_INCLUDE_DIR}
+            )
+
+        add_executable( unit_test
+            ${unit_test_files_src}
+            )
+
+        target_link_libraries( unit_test
+            ${VM_LINK_LIBS}
+            ${GTEST_LIBRARIES}
+            ${GTEST_MAIN_LIBRARIES}
+            ${CMAKE_THREAD_LIBS_INIT}
+            ${PROTOBUF_LIBRARY}
+            )
+
+        add_test(unit_tests ../unit_test)
+
+    ELSEIF(DEFINED ENV{GTEST_ROOT})  # Note we omit the $ here!
+        message(" ... using gtest found in $ENV{GTEST_ROOT}")
+        FIND_PACKAGE(Threads REQUIRED)
+
+        set(test_EXECUTABLE unit_test)
+
+        include_directories( unit_test
+            ${VCOMPUTER_INCLUDE_DIRS}
+            $ENV{GTEST_ROOT}/include
+            $ENV{GTEST_ROOT}
+            ${PROTOBUF_INCLUDE_DIR}
+            )
+
+        add_executable( unit_test
+            ${unit_test_files_src}
+            )
 
 
-IF(GTEST_FOUND)
-    message(" ... using gtest found by FindGTest")
-    FIND_PACKAGE(Threads REQUIRED)
+        target_link_libraries( unit_test
+            ${VM_LINK_LIBS}
+            gtest
+            gtest_main
+            ${CMAKE_THREAD_LIBS_INIT}
+            ${PROTOBUF_LIBRARY}
+            )
 
-    set(test_EXECUTABLE unit_test)
+        add_test(unit_tests ../unit_test)
 
-    include_directories( unit_test
+    ELSEIF(GTEST_ROOT)
+        message(" ... using gtest in ${GTEST_ROOT}")
+        FIND_PACKAGE(Threads REQUIRED)
+
+        set(test_EXECUTABLE unit_test)
+
+        include_directories( unit_test
+            ${VCOMPUTER_INCLUDE_DIRS}
+            ${GTEST_ROOT}/include
+            ${GTEST_ROOT}
+            ${PROTOBUF_INCLUDE_DIR}
+            )
+
+        add_executable( unit_test
+            ${unit_test_files_src}
+            )
+
+
+        target_link_libraries( unit_test
+            ${VM_LINK_LIBS}
+            gtest
+            gtest_main
+            ${CMAKE_THREAD_LIBS_INIT}
+            ${PROTOBUF_LIBRARY}
+            )
+
+        add_test(unit_tests ../unit_test)
+
+    ELSE(GTEST_FOUND)
+        message(STATUS "findGTest failed and GTEST_ROOT is not defined. You must tell CMake where to find the gtest source. For example :
+        GTEST_ROOT=path/gtest-1.6.0 ;
+        export GTEST_ROOT ")
+        set(GTEST_ROOT "" CACHE PATH "GTest root path")
+    endif(GTEST_FOUND)
+
+    # Benchmark executable
+    add_executable( benchmark
+        benchmark.cpp
+        )
+
+    include_directories( benchmark
         ${VCOMPUTER_INCLUDE_DIRS}
-        ${GTEST_INCLUDE_DIRS}
         ${PROTOBUF_INCLUDE_DIR}
         )
 
-    add_executable( unit_test
-        ${unit_test_files_src}
-        )
-
-    target_link_libraries( unit_test
+    target_link_libraries( benchmark
         ${VM_LINK_LIBS}
-        ${GTEST_LIBRARIES}
-        ${GTEST_MAIN_LIBRARIES}
-        ${CMAKE_THREAD_LIBS_INIT}
         ${PROTOBUF_LIBRARY}
         )
 
-    add_test(unit_tests ../unit_test)
-
-ELSEIF(DEFINED ENV{GTEST_ROOT})  # Note we omit the $ here!
-    message(" ... using gtest found in $ENV{GTEST_ROOT}")
-    FIND_PACKAGE(Threads REQUIRED)
-
-    set(test_EXECUTABLE unit_test)
-
-    include_directories( unit_test
-        ${VCOMPUTER_INCLUDE_DIRS}
-        $ENV{GTEST_ROOT}/include
-        $ENV{GTEST_ROOT}
-        )
-
-    add_executable( unit_test
-        ${unit_test_files_src}
-        )
-
-
-    target_link_libraries( unit_test
-        ${VM_LINK_LIBS}
-        gtest
-        gtest_main
-        ${CMAKE_THREAD_LIBS_INIT}
-        )
-
-    add_test(unit_tests ../unit_test)
-
-ELSEIF(GTEST_ROOT)
-    message(" ... using gtest in ${GTEST_ROOT}")
-    FIND_PACKAGE(Threads REQUIRED)
-
-    set(test_EXECUTABLE unit_test)
-
-    include_directories( unit_test
-        ${VCOMPUTER_INCLUDE_DIRS}
-        ${GTEST_ROOT}/include
-        ${GTEST_ROOT}
-        )
-
-    add_executable( unit_test
-        ${unit_test_files_src}
-        )
-
-
-    target_link_libraries( unit_test
-        ${VM_LINK_LIBS}
-        gtest
-        gtest_main
-        ${CMAKE_THREAD_LIBS_INIT}
-        )
-
-    add_test(unit_tests ../unit_test)
-
-ELSE()
-    message(STATUS "findGTest failed and GTEST_ROOT is not defined. You must tell CMake where to find the gtest source. For example :
-    GTEST_ROOT=path/gtest-1.6.0 ;
-    export GTEST_ROOT ")
-    set(GTEST_ROOT "" CACHE PATH "GTest root path")
-endif()
-
-# Benchmark executable
-add_executable( benchmark
-    benchmark.cpp
-    )
-
-include_directories( benchmark
-    ${VCOMPUTER_INCLUDE_DIRS}
-    )
-
-target_link_libraries( benchmark
-    ${VM_LINK_LIBS}
-    )
+ELSE(PROTOBUF_FOUND)
+    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required")
+ENDIF(PROTOBUF_FOUND)
 

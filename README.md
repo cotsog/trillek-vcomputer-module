@@ -13,7 +13,9 @@ This repo contains of the Trillek Virtual Computer lib and some extra tools, inc
 
 COMPILING
 ---------
-We are using CMake and C++ 11 (Vs2013/14 , G++ >= 4.7, LLVM). So if you are in GNU/Linux you could compile with this :
+This library uses Google's Protocol buffers lite for serialization of data (snapshots), so you would need to install it to build the demos/tools or link against protocol buffers in your project.
+
+We are using CMake and C++ 11 (Vs2013/14/15 , G++ >= 4.7, LLVM). So if you are in GNU/Linux you could compile with this :
 
     mkdir build
     cd build

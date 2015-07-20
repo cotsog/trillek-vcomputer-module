@@ -8,6 +8,7 @@ SET(OSX_LIBRARIES "")
 
 # Protobuffers stuff
 FIND_PACKAGE(Protobuf)
+IF (PROTOBUF_FOUND)
 
 # FIND GLFW3 AND OPENGL libs
 FIND_PACKAGE(GLFW3)
@@ -191,7 +192,6 @@ IF (OPENAL_ENABLE EQUAL 1)
 ENDIF (OPENAL_ENABLE EQUAL 1)
 
 # Main executable
-IF (PROTOBUF_FOUND)
     ADD_EXECUTABLE( vc
         ./main.cpp
         ${TOOL_OTHER_SRC}
@@ -207,23 +207,6 @@ IF (PROTOBUF_FOUND)
         ${MEDIA_LINK_LIBS}
         ${PROTOBUF_LIBRARY}
         )
-
-ELSE (PROTOBUF_FOUND)
-    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for toy emulator")
-ENDIF (PROTOBUF_FOUND)
-
-#pbm2font tool
-ADD_EXECUTABLE( pbm2tdafont
-    ./pbm2font.cpp
-    )
-SET(TARGETS ${TARGETS} "pbm2tdafont")
-
-INCLUDE_DIRECTORIES( pbm2tdafont
-    ${VM_INCLUDE_DIRS}
-    )
-TARGET_LINK_LIBRARIES( pbm2tdafont
-    ${VM_LINK_LIBS}
-    )
 
 # makedisk executable
 ADD_EXECUTABLE( maketrdisk
@@ -245,3 +228,19 @@ INSTALL(TARGETS ${TARGETS}
     RUNTIME DESTINATION bin
     )
 
+ELSE (PROTOBUF_FOUND)
+    MESSAGE(WARNING "Protobuf (Protocol buffers), not found. It's required for some tools")
+ENDIF (PROTOBUF_FOUND)
+
+#pbm2font tool
+ADD_EXECUTABLE( pbm2tdafont
+    ./pbm2font.cpp
+    )
+SET(TARGETS ${TARGETS} "pbm2tdafont")
+
+INCLUDE_DIRECTORIES( pbm2tdafont
+    ${VM_INCLUDE_DIRS}
+    )
+TARGET_LINK_LIBRARIES( pbm2tdafont
+    ${VM_LINK_LIBS}
+    )
