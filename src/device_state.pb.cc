@@ -10,162 +10,53 @@
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 // @@protoc_insertion_point(includes)
 
 namespace trillek {
 namespace computer {
 
-namespace {
-
-const ::google::protobuf::Descriptor* DeviceState_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  DeviceState_reflection_ = NULL;
-const ::google::protobuf::Descriptor* DeviceState_DeviceProperty_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  DeviceState_DeviceProperty_reflection_ = NULL;
-struct DeviceState_DevicePropertyOneofInstance {
-  bool bvalue_;
-  const ::std::string* svalue_;
-  ::google::protobuf::uint32 ivalue_;
-  ::google::protobuf::uint64 lvalue_;
-  float fvalue_;
-}* DeviceState_DeviceProperty_default_oneof_instance_ = NULL;
-const ::google::protobuf::EnumDescriptor* DeviceState_DeviceProperty_Type_descriptor_ = NULL;
-
-}  // namespace
-
-
-void protobuf_AssignDesc_device_5fstate_2eproto() {
-  protobuf_AddDesc_device_5fstate_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "device_state.proto");
-  GOOGLE_CHECK(file != NULL);
-  DeviceState_descriptor_ = file->message_type(0);
-  static const int DeviceState_offsets_[10] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, dev_type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, dev_subtype_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, dev_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, dev_vendor_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, a_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, b_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, c_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, d_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, e_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, properties_),
-  };
-  DeviceState_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      DeviceState_descriptor_,
-      DeviceState::default_instance_,
-      DeviceState_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, _unknown_fields_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState, _extensions_),
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(DeviceState));
-  DeviceState_DeviceProperty_descriptor_ = DeviceState_descriptor_->nested_type(0);
-  static const int DeviceState_DeviceProperty_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, name_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(DeviceState_DeviceProperty_default_oneof_instance_, bvalue_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(DeviceState_DeviceProperty_default_oneof_instance_, svalue_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(DeviceState_DeviceProperty_default_oneof_instance_, ivalue_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(DeviceState_DeviceProperty_default_oneof_instance_, lvalue_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(DeviceState_DeviceProperty_default_oneof_instance_, fvalue_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, value_),
-  };
-  DeviceState_DeviceProperty_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      DeviceState_DeviceProperty_descriptor_,
-      DeviceState_DeviceProperty::default_instance_,
-      DeviceState_DeviceProperty_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, _unknown_fields_),
-      -1,
-      DeviceState_DeviceProperty_default_oneof_instance_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceState_DeviceProperty, _oneof_case_[0]),
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(DeviceState_DeviceProperty));
-  DeviceState_DeviceProperty_Type_descriptor_ = DeviceState_DeviceProperty_descriptor_->enum_type(0);
-}
-
-namespace {
-
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_device_5fstate_2eproto);
-}
-
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    DeviceState_descriptor_, &DeviceState::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    DeviceState_DeviceProperty_descriptor_, &DeviceState_DeviceProperty::default_instance());
-}
-
-}  // namespace
-
 void protobuf_ShutdownFile_device_5fstate_2eproto() {
   delete DeviceState::default_instance_;
-  delete DeviceState_reflection_;
   delete DeviceState_DeviceProperty::default_instance_;
-  delete DeviceState_DeviceProperty_default_oneof_instance_;
-  delete DeviceState_DeviceProperty_reflection_;
 }
 
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+void protobuf_AddDesc_device_5fstate_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#else
 void protobuf_AddDesc_device_5fstate_2eproto() {
   static bool already_here = false;
   if (already_here) return;
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\022device_state.proto\022\020trillek.computer\"\340"
-    "\003\n\013DeviceState\022\020\n\010dev_type\030\001 \002(\r\022\023\n\013dev_"
-    "subtype\030\002 \002(\r\022\016\n\006dev_id\030\003 \002(\r\022\025\n\rdev_ven"
-    "dor_id\030\004 \002(\r\022\t\n\001a\030\005 \001(\r\022\t\n\001b\030\006 \001(\r\022\t\n\001c\030"
-    "\007 \001(\r\022\t\n\001d\030\010 \001(\r\022\t\n\001e\030\t \001(\r\022@\n\npropertie"
-    "s\030\n \003(\0132,.trillek.computer.DeviceState.D"
-    "eviceProperty\032\376\001\n\016DeviceProperty\022\?\n\004type"
-    "\030\001 \002(\01621.trillek.computer.DeviceState.De"
-    "viceProperty.Type\022\014\n\004name\030\002 \002(\t\022\020\n\006bvalu"
-    "e\030\003 \001(\010H\000\022\020\n\006svalue\030\004 \001(\tH\000\022\020\n\006ivalue\030\005 "
-    "\001(\rH\000\022\020\n\006lvalue\030\006 \001(\004H\000\022\020\n\006fvalue\030\007 \001(\002H"
-    "\000\":\n\004Type\022\010\n\004BOOL\020\000\022\n\n\006STRING\020\001\022\007\n\003INT\020\002"
-    "\022\t\n\005FLOAT\020\003\022\010\n\004LONG\020\004B\007\n\005value*\t\010\350\007\020\200\200\200\200"
-    "\002", 521);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "device_state.proto", &protobuf_RegisterTypes);
+#endif
   DeviceState::default_instance_ = new DeviceState();
   DeviceState_DeviceProperty::default_instance_ = new DeviceState_DeviceProperty();
-  DeviceState_DeviceProperty_default_oneof_instance_ = new DeviceState_DevicePropertyOneofInstance;
   DeviceState::default_instance_->InitAsDefaultInstance();
   DeviceState_DeviceProperty::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_device_5fstate_2eproto);
 }
 
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_device_5fstate_2eproto_once_);
+void protobuf_AddDesc_device_5fstate_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_device_5fstate_2eproto_once_,
+                 &protobuf_AddDesc_device_5fstate_2eproto_impl);
+}
+#else
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_device_5fstate_2eproto {
   StaticDescriptorInitializer_device_5fstate_2eproto() {
     protobuf_AddDesc_device_5fstate_2eproto();
   }
 } static_descriptor_initializer_device_5fstate_2eproto_;
+#endif
 
 // ===================================================================
 
-const ::google::protobuf::EnumDescriptor* DeviceState_DeviceProperty_Type_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return DeviceState_DeviceProperty_Type_descriptor_;
-}
 bool DeviceState_DeviceProperty_Type_IsValid(int value) {
   switch(value) {
     case 0:
@@ -173,6 +64,7 @@ bool DeviceState_DeviceProperty_Type_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
@@ -185,6 +77,7 @@ const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::STRING;
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::INT;
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::FLOAT;
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::LONG;
+const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::RAW;
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::Type_MIN;
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty::Type_MAX;
 const int DeviceState_DeviceProperty::Type_ARRAYSIZE;
@@ -197,24 +90,20 @@ const int DeviceState_DeviceProperty::kSvalueFieldNumber;
 const int DeviceState_DeviceProperty::kIvalueFieldNumber;
 const int DeviceState_DeviceProperty::kLvalueFieldNumber;
 const int DeviceState_DeviceProperty::kFvalueFieldNumber;
+const int DeviceState_DeviceProperty::kRvalueFieldNumber;
 #endif  // !_MSC_VER
 
 DeviceState_DeviceProperty::DeviceState_DeviceProperty()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   // @@protoc_insertion_point(constructor:trillek.computer.DeviceState.DeviceProperty)
 }
 
 void DeviceState_DeviceProperty::InitAsDefaultInstance() {
-  DeviceState_DeviceProperty_default_oneof_instance_->bvalue_ = false;
-  DeviceState_DeviceProperty_default_oneof_instance_->svalue_ = &::google::protobuf::internal::GetEmptyStringAlreadyInited();
-  DeviceState_DeviceProperty_default_oneof_instance_->ivalue_ = 0u;
-  DeviceState_DeviceProperty_default_oneof_instance_->lvalue_ = GOOGLE_ULONGLONG(0);
-  DeviceState_DeviceProperty_default_oneof_instance_->fvalue_ = 0;
 }
 
 DeviceState_DeviceProperty::DeviceState_DeviceProperty(const DeviceState_DeviceProperty& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:trillek.computer.DeviceState.DeviceProperty)
@@ -241,7 +130,11 @@ void DeviceState_DeviceProperty::SharedDtor() {
   if (has_value()) {
     clear_value();
   }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -250,13 +143,12 @@ void DeviceState_DeviceProperty::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* DeviceState_DeviceProperty::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return DeviceState_DeviceProperty_descriptor_;
-}
-
 const DeviceState_DeviceProperty& DeviceState_DeviceProperty::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_device_5fstate_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_device_5fstate_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -288,6 +180,10 @@ void DeviceState_DeviceProperty::clear_value() {
       // No need to clear
       break;
     }
+    case kRvalue: {
+      delete value_.rvalue_;
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -307,13 +203,17 @@ void DeviceState_DeviceProperty::Clear() {
   }
   clear_value();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
+  mutable_unknown_fields()->clear();
 }
 
 bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
   // @@protoc_insertion_point(parse_start:trillek.computer.DeviceState.DeviceProperty)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
@@ -330,7 +230,8 @@ bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
           if (::trillek::computer::DeviceState_DeviceProperty_Type_IsValid(value)) {
             set_type(static_cast< ::trillek::computer::DeviceState_DeviceProperty_Type >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(1, value);
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
           }
         } else {
           goto handle_unusual;
@@ -345,10 +246,6 @@ bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
          parse_name:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "name");
         } else {
           goto handle_unusual;
         }
@@ -378,10 +275,6 @@ bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
          parse_svalue:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_svalue()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->svalue().data(), this->svalue().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "svalue");
         } else {
           goto handle_unusual;
         }
@@ -433,6 +326,19 @@ bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(66)) goto parse_rvalue;
+        break;
+      }
+
+      // optional bytes rvalue = 8;
+      case 8: {
+        if (tag == 66) {
+         parse_rvalue:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_rvalue()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -444,8 +350,8 @@ bool DeviceState_DeviceProperty::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           goto success;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
         break;
       }
     }
@@ -470,10 +376,6 @@ void DeviceState_DeviceProperty::SerializeWithCachedSizes(
 
   // required string name = 2;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->name(), output);
   }
@@ -485,10 +387,6 @@ void DeviceState_DeviceProperty::SerializeWithCachedSizes(
 
   // optional string svalue = 4;
   if (has_svalue()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->svalue().data(), this->svalue().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "svalue");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->svalue(), output);
   }
@@ -508,70 +406,15 @@ void DeviceState_DeviceProperty::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->fvalue(), output);
   }
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+  // optional bytes rvalue = 8;
+  if (has_rvalue()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      8, this->rvalue(), output);
   }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:trillek.computer.DeviceState.DeviceProperty)
-}
-
-::google::protobuf::uint8* DeviceState_DeviceProperty::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:trillek.computer.DeviceState.DeviceProperty)
-  // required .trillek.computer.DeviceState.DeviceProperty.Type type = 1;
-  if (has_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->type(), target);
-  }
-
-  // required string name = 2;
-  if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "name");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->name(), target);
-  }
-
-  // optional bool bvalue = 3;
-  if (has_bvalue()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->bvalue(), target);
-  }
-
-  // optional string svalue = 4;
-  if (has_svalue()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->svalue().data(), this->svalue().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "svalue");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->svalue(), target);
-  }
-
-  // optional uint32 ivalue = 5;
-  if (has_ivalue()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->ivalue(), target);
-  }
-
-  // optional uint64 lvalue = 6;
-  if (has_lvalue()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(6, this->lvalue(), target);
-  }
-
-  // optional float fvalue = 7;
-  if (has_fvalue()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->fvalue(), target);
-  }
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:trillek.computer.DeviceState.DeviceProperty)
-  return target;
 }
 
 int DeviceState_DeviceProperty::ByteSize() const {
@@ -624,31 +467,28 @@ int DeviceState_DeviceProperty::ByteSize() const {
       total_size += 1 + 4;
       break;
     }
+    // optional bytes rvalue = 8;
+    case kRvalue: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->rvalue());
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
   }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
+  total_size += unknown_fields().size();
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DeviceState_DeviceProperty::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const DeviceState_DeviceProperty* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const DeviceState_DeviceProperty*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void DeviceState_DeviceProperty::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const DeviceState_DeviceProperty*>(&from));
 }
 
 void DeviceState_DeviceProperty::MergeFrom(const DeviceState_DeviceProperty& from) {
@@ -674,6 +514,10 @@ void DeviceState_DeviceProperty::MergeFrom(const DeviceState_DeviceProperty& fro
       set_fvalue(from.fvalue());
       break;
     }
+    case kRvalue: {
+      set_rvalue(from.rvalue());
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -686,13 +530,7 @@ void DeviceState_DeviceProperty::MergeFrom(const DeviceState_DeviceProperty& fro
       set_name(from.name());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void DeviceState_DeviceProperty::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  mutable_unknown_fields()->append(from.unknown_fields());
 }
 
 void DeviceState_DeviceProperty::CopyFrom(const DeviceState_DeviceProperty& from) {
@@ -714,17 +552,13 @@ void DeviceState_DeviceProperty::Swap(DeviceState_DeviceProperty* other) {
     std::swap(value_, other->value_);
     std::swap(_oneof_case_[0], other->_oneof_case_[0]);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
+    _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata DeviceState_DeviceProperty::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = DeviceState_DeviceProperty_descriptor_;
-  metadata.reflection = DeviceState_DeviceProperty_reflection_;
-  return metadata;
+::std::string DeviceState_DeviceProperty::GetTypeName() const {
+  return "trillek.computer.DeviceState.DeviceProperty";
 }
 
 
@@ -744,7 +578,7 @@ const int DeviceState::kPropertiesFieldNumber;
 #endif  // !_MSC_VER
 
 DeviceState::DeviceState()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   // @@protoc_insertion_point(constructor:trillek.computer.DeviceState)
 }
@@ -753,7 +587,7 @@ void DeviceState::InitAsDefaultInstance() {
 }
 
 DeviceState::DeviceState(const DeviceState& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:trillek.computer.DeviceState)
@@ -779,7 +613,11 @@ DeviceState::~DeviceState() {
 }
 
 void DeviceState::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
   if (this != default_instance_) {
+  #endif
   }
 }
 
@@ -788,13 +626,12 @@ void DeviceState::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* DeviceState::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return DeviceState_descriptor_;
-}
-
 const DeviceState& DeviceState::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_device_5fstate_2eproto();
+#else
   if (default_instance_ == NULL) protobuf_AddDesc_device_5fstate_2eproto();
+#endif
   return *default_instance_;
 }
 
@@ -826,13 +663,17 @@ void DeviceState::Clear() {
 
   properties_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
+  mutable_unknown_fields()->clear();
 }
 
 bool DeviceState::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
   // @@protoc_insertion_point(parse_start:trillek.computer.DeviceState)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
@@ -995,12 +836,17 @@ bool DeviceState::MergePartialFromCodedStream(
           goto success;
         }
         if ((8000u <= tag)) {
+        #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+          DO_(_extensions_.ParseField(tag, input, &default_instance(),
+                                      &unknown_fields_stream));
+        #else
           DO_(_extensions_.ParseField(tag, input, default_instance_,
-                                      mutable_unknown_fields()));
+                                      &unknown_fields_stream));
+        #endif
           continue;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
         break;
       }
     }
@@ -1064,7 +910,7 @@ void DeviceState::SerializeWithCachedSizes(
 
   // repeated .trillek.computer.DeviceState.DeviceProperty properties = 10;
   for (int i = 0; i < this->properties_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
       10, this->properties(i), output);
   }
 
@@ -1072,78 +918,9 @@ void DeviceState::SerializeWithCachedSizes(
   _extensions_.SerializeWithCachedSizes(
       1000, 536870912, output);
 
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:trillek.computer.DeviceState)
-}
-
-::google::protobuf::uint8* DeviceState::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:trillek.computer.DeviceState)
-  // required uint32 dev_type = 1;
-  if (has_dev_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->dev_type(), target);
-  }
-
-  // required uint32 dev_subtype = 2;
-  if (has_dev_subtype()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->dev_subtype(), target);
-  }
-
-  // required uint32 dev_id = 3;
-  if (has_dev_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->dev_id(), target);
-  }
-
-  // required uint32 dev_vendor_id = 4;
-  if (has_dev_vendor_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->dev_vendor_id(), target);
-  }
-
-  // optional uint32 a = 5;
-  if (has_a()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->a(), target);
-  }
-
-  // optional uint32 b = 6;
-  if (has_b()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->b(), target);
-  }
-
-  // optional uint32 c = 7;
-  if (has_c()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->c(), target);
-  }
-
-  // optional uint32 d = 8;
-  if (has_d()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->d(), target);
-  }
-
-  // optional uint32 e = 9;
-  if (has_e()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(9, this->e(), target);
-  }
-
-  // repeated .trillek.computer.DeviceState.DeviceProperty properties = 10;
-  for (int i = 0; i < this->properties_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        10, this->properties(i), target);
-  }
-
-  // Extension range [1000, 536870912)
-  target = _extensions_.SerializeWithCachedSizesToArray(
-      1000, 536870912, target);
-
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:trillek.computer.DeviceState)
-  return target;
 }
 
 int DeviceState::ByteSize() const {
@@ -1226,27 +1003,17 @@ int DeviceState::ByteSize() const {
 
   total_size += _extensions_.ByteSize();
 
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
+  total_size += unknown_fields().size();
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DeviceState::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const DeviceState* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const DeviceState*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void DeviceState::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const DeviceState*>(&from));
 }
 
 void DeviceState::MergeFrom(const DeviceState& from) {
@@ -1284,13 +1051,7 @@ void DeviceState::MergeFrom(const DeviceState& from) {
     }
   }
   _extensions_.MergeFrom(from._extensions_);
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void DeviceState::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  mutable_unknown_fields()->append(from.unknown_fields());
 }
 
 void DeviceState::CopyFrom(const DeviceState& from) {
@@ -1320,18 +1081,14 @@ void DeviceState::Swap(DeviceState* other) {
     std::swap(e_, other->e_);
     properties_.Swap(&other->properties_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
+    _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
     _extensions_.Swap(&other->_extensions_);
   }
 }
 
-::google::protobuf::Metadata DeviceState::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = DeviceState_descriptor_;
-  metadata.reflection = DeviceState_reflection_;
-  return metadata;
+::std::string DeviceState::GetTypeName() const {
+  return "trillek.computer.DeviceState";
 }
 
 

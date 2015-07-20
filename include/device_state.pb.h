@@ -20,11 +20,9 @@
 #endif
 
 #include <google/protobuf/generated_message_util.h>
-#include <google/protobuf/message.h>
+#include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/generated_enum_reflection.h>
-#include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
 namespace trillek {
@@ -43,26 +41,17 @@ enum DeviceState_DeviceProperty_Type {
   DeviceState_DeviceProperty_Type_STRING = 1,
   DeviceState_DeviceProperty_Type_INT = 2,
   DeviceState_DeviceProperty_Type_FLOAT = 3,
-  DeviceState_DeviceProperty_Type_LONG = 4
+  DeviceState_DeviceProperty_Type_LONG = 4,
+  DeviceState_DeviceProperty_Type_RAW = 5
 };
 bool DeviceState_DeviceProperty_Type_IsValid(int value);
 const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty_Type_Type_MIN = DeviceState_DeviceProperty_Type_BOOL;
-const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty_Type_Type_MAX = DeviceState_DeviceProperty_Type_LONG;
+const DeviceState_DeviceProperty_Type DeviceState_DeviceProperty_Type_Type_MAX = DeviceState_DeviceProperty_Type_RAW;
 const int DeviceState_DeviceProperty_Type_Type_ARRAYSIZE = DeviceState_DeviceProperty_Type_Type_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* DeviceState_DeviceProperty_Type_descriptor();
-inline const ::std::string& DeviceState_DeviceProperty_Type_Name(DeviceState_DeviceProperty_Type value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    DeviceState_DeviceProperty_Type_descriptor(), value);
-}
-inline bool DeviceState_DeviceProperty_Type_Parse(
-    const ::std::string& name, DeviceState_DeviceProperty_Type* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<DeviceState_DeviceProperty_Type>(
-    DeviceState_DeviceProperty_Type_descriptor(), name, value);
-}
 // ===================================================================
 
-class DeviceState_DeviceProperty : public ::google::protobuf::Message {
+class DeviceState_DeviceProperty : public ::google::protobuf::MessageLite {
  public:
   DeviceState_DeviceProperty();
   virtual ~DeviceState_DeviceProperty();
@@ -74,15 +63,14 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+  inline const ::std::string& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+  inline ::std::string* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DeviceState_DeviceProperty& default_instance();
 
   enum ValueCase {
@@ -91,16 +79,26 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
     kIvalue = 5,
     kLvalue = 6,
     kFvalue = 7,
+    kRvalue = 8,
     VALUE_NOT_SET = 0,
   };
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const DeviceState_DeviceProperty* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(DeviceState_DeviceProperty* other);
 
   // implements Message ----------------------------------------------
 
   DeviceState_DeviceProperty* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DeviceState_DeviceProperty& from);
   void MergeFrom(const DeviceState_DeviceProperty& from);
   void Clear();
@@ -111,14 +109,14 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  void DiscardUnknownFields();
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -128,6 +126,7 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
   static const Type INT = DeviceState_DeviceProperty_Type_INT;
   static const Type FLOAT = DeviceState_DeviceProperty_Type_FLOAT;
   static const Type LONG = DeviceState_DeviceProperty_Type_LONG;
+  static const Type RAW = DeviceState_DeviceProperty_Type_RAW;
   static inline bool Type_IsValid(int value) {
     return DeviceState_DeviceProperty_Type_IsValid(value);
   }
@@ -137,17 +136,6 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
     DeviceState_DeviceProperty_Type_Type_MAX;
   static const int Type_ARRAYSIZE =
     DeviceState_DeviceProperty_Type_Type_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  Type_descriptor() {
-    return DeviceState_DeviceProperty_Type_descriptor();
-  }
-  static inline const ::std::string& Type_Name(Type value) {
-    return DeviceState_DeviceProperty_Type_Name(value);
-  }
-  static inline bool Type_Parse(const ::std::string& name,
-      Type* value) {
-    return DeviceState_DeviceProperty_Type_Parse(name, value);
-  }
 
   // accessors -------------------------------------------------------
 
@@ -210,6 +198,18 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
   inline float fvalue() const;
   inline void set_fvalue(float value);
 
+  // optional bytes rvalue = 8;
+  inline bool has_rvalue() const;
+  inline void clear_rvalue();
+  static const int kRvalueFieldNumber = 8;
+  inline const ::std::string& rvalue() const;
+  inline void set_rvalue(const ::std::string& value);
+  inline void set_rvalue(const char* value);
+  inline void set_rvalue(const void* value, size_t size);
+  inline ::std::string* mutable_rvalue();
+  inline ::std::string* release_rvalue();
+  inline void set_allocated_rvalue(::std::string* rvalue);
+
   inline ValueCase value_case() const;
   // @@protoc_insertion_point(class_scope:trillek.computer.DeviceState.DeviceProperty)
  private:
@@ -222,12 +222,13 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
   inline void set_has_ivalue();
   inline void set_has_lvalue();
   inline void set_has_fvalue();
+  inline void set_has_rvalue();
 
   inline bool has_value();
   void clear_value();
   inline void clear_has_value();
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  ::std::string _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
@@ -239,10 +240,15 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
     ::google::protobuf::uint32 ivalue_;
     ::google::protobuf::uint64 lvalue_;
     float fvalue_;
+    ::std::string* rvalue_;
   } value_;
   ::google::protobuf::uint32 _oneof_case_[1];
 
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_device_5fstate_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_device_5fstate_2eproto();
+  #endif
   friend void protobuf_AssignDesc_device_5fstate_2eproto();
   friend void protobuf_ShutdownFile_device_5fstate_2eproto();
 
@@ -251,7 +257,7 @@ class DeviceState_DeviceProperty : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class DeviceState : public ::google::protobuf::Message {
+class DeviceState : public ::google::protobuf::MessageLite {
  public:
   DeviceState();
   virtual ~DeviceState();
@@ -263,24 +269,32 @@ class DeviceState : public ::google::protobuf::Message {
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+  inline const ::std::string& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+  inline ::std::string* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DeviceState& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const DeviceState* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
 
   void Swap(DeviceState* other);
 
   // implements Message ----------------------------------------------
 
   DeviceState* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DeviceState& from);
   void MergeFrom(const DeviceState& from);
   void Clear();
@@ -291,14 +305,14 @@ class DeviceState : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  void DiscardUnknownFields();
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
 
   // nested types ----------------------------------------------------
 
@@ -405,7 +419,7 @@ class DeviceState : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::ExtensionSet _extensions_;
 
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  ::std::string _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
@@ -419,7 +433,11 @@ class DeviceState : public ::google::protobuf::Message {
   ::google::protobuf::uint32 d_;
   ::google::protobuf::RepeatedPtrField< ::trillek::computer::DeviceState_DeviceProperty > properties_;
   ::google::protobuf::uint32 e_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_device_5fstate_2eproto_impl();
+  #else
   friend void  protobuf_AddDesc_device_5fstate_2eproto();
+  #endif
   friend void protobuf_AssignDesc_device_5fstate_2eproto();
   friend void protobuf_ShutdownFile_device_5fstate_2eproto();
 
@@ -712,6 +730,76 @@ inline void DeviceState_DeviceProperty::set_fvalue(float value) {
   value_.fvalue_ = value;
 }
 
+// optional bytes rvalue = 8;
+inline bool DeviceState_DeviceProperty::has_rvalue() const {
+  return value_case() == kRvalue;
+}
+inline void DeviceState_DeviceProperty::set_has_rvalue() {
+  _oneof_case_[0] = kRvalue;
+}
+inline void DeviceState_DeviceProperty::clear_rvalue() {
+  if (has_rvalue()) {
+    delete value_.rvalue_;
+    clear_has_value();
+  }
+}
+inline const ::std::string& DeviceState_DeviceProperty::rvalue() const {
+  if (has_rvalue()) {
+    return *value_.rvalue_;
+  }
+  return ::google::protobuf::internal::GetEmptyStringAlreadyInited();
+}
+inline void DeviceState_DeviceProperty::set_rvalue(const ::std::string& value) {
+  if (!has_rvalue()) {
+    clear_value();
+    set_has_rvalue();
+    value_.rvalue_ = new ::std::string;
+  }
+  value_.rvalue_->assign(value);
+}
+inline void DeviceState_DeviceProperty::set_rvalue(const char* value) {
+  if (!has_rvalue()) {
+    clear_value();
+    set_has_rvalue();
+    value_.rvalue_ = new ::std::string;
+  }
+  value_.rvalue_->assign(value);
+}
+inline void DeviceState_DeviceProperty::set_rvalue(const void* value, size_t size) {
+  if (!has_rvalue()) {
+    clear_value();
+    set_has_rvalue();
+    value_.rvalue_ = new ::std::string;
+  }
+  value_.rvalue_->assign(
+      reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* DeviceState_DeviceProperty::mutable_rvalue() {
+  if (!has_rvalue()) {
+    clear_value();
+    set_has_rvalue();
+    value_.rvalue_ = new ::std::string;
+  }
+  return value_.rvalue_;
+}
+inline ::std::string* DeviceState_DeviceProperty::release_rvalue() {
+  if (has_rvalue()) {
+    clear_has_value();
+    ::std::string* temp = value_.rvalue_;
+    value_.rvalue_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void DeviceState_DeviceProperty::set_allocated_rvalue(::std::string* rvalue) {
+  clear_value();
+  if (rvalue) {
+    set_has_rvalue();
+    value_.rvalue_ = rvalue;
+  }
+}
+
 inline bool DeviceState_DeviceProperty::has_value() {
   return value_case() != VALUE_NOT_SET;
 }
@@ -976,20 +1064,6 @@ DeviceState::mutable_properties() {
 
 }  // namespace computer
 }  // namespace trillek
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::trillek::computer::DeviceState_DeviceProperty_Type> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::trillek::computer::DeviceState_DeviceProperty_Type>() {
-  return ::trillek::computer::DeviceState_DeviceProperty_Type_descriptor();
-}
-
-}  // namespace google
-}  // namespace protobuf
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

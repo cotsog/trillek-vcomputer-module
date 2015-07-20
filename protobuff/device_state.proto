@@ -1,5 +1,5 @@
 syntax = "proto2";
-
+option optimize_for = LITE_RUNTIME;
 package trillek.computer;
 
 /**
@@ -27,6 +27,7 @@ message DeviceState {
             INT = 2;
             FLOAT = 3;
             LONG = 4;
+            RAW = 5;
         }
 
         required Type type = 1;
@@ -37,6 +38,7 @@ message DeviceState {
             uint32 ivalue = 5;
             uint64 lvalue = 6;
             float fvalue = 7;
+            bytes rvalue = 8;
         }
     }
 
