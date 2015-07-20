@@ -84,44 +84,73 @@ void GKeyboardDev::IACK () {
     do_int = false; // Acepted, so we can forgot now of sending it again
 }
 
-/*
-void GKeyboardDev::GetState (void* ptr, std::size_t& size) const {
-    if ( ptr != nullptr && size >= sizeof(GKeyboardState) ) {
-        auto state = (GKeyboardState*) ptr;
 
-        state->a = this->a;
-        state->b = this->b;
-        state->c = this->c;
+void GKeyboardDev::GetState (DeviceState* out) const {
+    Device::GetState(out);
 
-        const std::deque<DWord>& tmp = this->keybuffer;
-        state->keybuffer = tmp; // Copy
+    out->set_a(this->a);
+    out->set_b(this->b);
+    out->set_c(this->c);
 
-        state->int_msg = this->int_msg;
-        state->do_int  = this->do_int;
+    out->clear_properties();
+
+    // int_msg
+    auto int_msg = out->add_properties();
+    int_msg->set_type(DeviceState_DeviceProperty_Type_INT);
+    int_msg->set_name("int_msg");
+    int_msg->set_ivalue(this->int_msg);
+    // doing interrupt?
+    auto do_int = out->add_properties();
+    do_int->set_type(DeviceState_DeviceProperty_Type_BOOL);
+    do_int->set_name("do_int");
+    do_int->set_bvalue(this->do_int);
+
+    if (! this->keybuffer.empty()) {
+        auto keybuffer = out->add_properties();
+        keybuffer->set_type(DeviceState_DeviceProperty_Type_RAW);
+        keybuffer->set_name("keybuffer");
+
+        // Copy data
+        DWord* buff = new DWord[this->keybuffer.size()+1]();
+        for( std::size_t i=0; i < this->keybuffer.size(); i++) {
+            buff[i] = this->keybuffer[i];
+        }
+        keybuffer->set_rvalue((void*) buff, this->keybuffer.size()*4);
+        delete[](buff);
     }
 } // GetState
 
-bool GKeyboardDev::SetState (const void* ptr, std::size_t size) {
-    if ( ptr != nullptr && size >= sizeof(GKeyboardState) ) {
-        // Sanity check
-        auto state = (const GKeyboardState*) ptr;
-
-        this->a = state->a;
-        this->b = state->b;
-        this->c = state->c;
-
-        const std::deque<DWord>& tmp = state->keybuffer;
-        this->keybuffer = tmp; // Copy
-
-        this->int_msg = state->int_msg;
-        this->do_int  = state->do_int;
-
-        return true;
+bool GKeyboardDev::SetState (const DeviceState* in) {
+    if (! Device::SetState(in)) {
+        return false;
     }
 
-    return false;
+    this->a = in->a();
+    this->b = in->b();
+    this->c = in->c();
+
+    this->keybuffer.clear();
+
+    for(int i=0; i < in->properties_size(); i++) {
+        auto prop = in->properties(i);
+        if (0 == prop.name().compare("int_msg")) {
+            // Interrupt message
+            this->int_msg = prop.ivalue();
+        } else if (0 == prop.name().compare("do_int")) {
+            // doing interrupt?
+            this->do_int = prop.bvalue();
+        } else if (0 == prop.name().compare("keybuffer")) {
+            DWord* buff = (DWord*) prop.rvalue().c_str();
+            std::size_t len = prop.rvalue().length() / 4;
+            for( std::size_t i=0; i < len; i++) {
+                this->keybuffer.push_back( buff[i]);
+            }
+        }
+    }
+
+    return true;
 } // SetState
-*/
+
 
 } // End of namespace gkeyboard
 } // End of namespace computer

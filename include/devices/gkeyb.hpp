@@ -217,6 +217,10 @@ public:
         return 0x00000000; // Generic
     }
 
+    virtual void GetState (DeviceState* out) const;
+
+    virtual bool SetState (const DeviceState* in);
+
     virtual bool DoesInterrupt (Word& msg);
 
     virtual void IACK ();

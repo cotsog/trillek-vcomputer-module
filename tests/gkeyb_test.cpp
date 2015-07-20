@@ -48,7 +48,7 @@ TEST(GKeyboard, SEND_PULL_event) {
   }
 }
 
-// Check if sending and pulling an event, works
+// Check filling the buffer
 TEST(GKeyboard, Fill_buffer) {
   using namespace trillek::computer::gkeyboard;
 
