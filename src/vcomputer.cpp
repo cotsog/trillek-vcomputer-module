@@ -172,10 +172,27 @@ unsigned VComputer::CPUClock() const {
     return 0;
 }
 
-void VComputer::GetState (void* ptr, std::size_t size) const {
+void VComputer::GetCPUState (void* ptr, std::size_t& size) const {
     if (cpu) {
         return cpu->GetState(ptr, size);
     }
+}
+
+bool VComputer::SetCPUState (const void* ptr, std::size_t size) {
+    if (cpu) {
+        return cpu->SetState(ptr, size);
+    }
+    return false;
+}
+
+
+void VComputer::GetState(ComputerState* out) const {
+    // TODO
+}
+
+bool VComputer::SetState (const ComputerState* in) {
+    // TODO
+    return false;
 }
 
 void VComputer::SetROM (const Byte* rom, std::size_t rom_size) {

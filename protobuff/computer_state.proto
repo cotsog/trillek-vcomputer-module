@@ -1,0 +1,33 @@
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+package trillek.computer;
+
+import "device_state.proto";
+
+/**
+ * Device data on Slot X
+ */
+message DeviceSlot {
+    required uint32 slot = 1;
+    required DeviceState device = 2;
+}
+
+/*
+ * Computer state
+ */
+message ComputerState {
+    optional bool is_on = 1;
+    required uint32 ram_size = 2;
+    optional uint32 rom_size = 3;
+
+    // TODO :
+    // CPU state
+    // PIT
+    // RNG
+    // RTC
+    // Beeper
+    // Breakpoint data ?
+
+    // Storage of plugged device data
+    repeated DeviceSlot devices = 10;
+}

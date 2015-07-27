@@ -152,8 +152,6 @@ public:
     /**
      * Writes a copy of Device state on a DeviceState object.
      * \param[out] ptr DeviceState object to be write
-     * \param[in,out] size Size of the chunk of memory were can write. If is
-     * sucesfull, it will be set to the size of the write data.
      */
     virtual void GetState (DeviceState* out) const {
         assert(out != nullptr);
@@ -167,7 +165,6 @@ public:
     /**
      * Sets the Device state.
      * \param ptr[in] DeviceState with the state information
-     * \param size Size of the chunk of memory were will read.
      * \return True if can read the State data from the pointer.
      */
     virtual bool SetState (const DeviceState* in) {

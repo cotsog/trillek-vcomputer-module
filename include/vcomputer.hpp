@@ -20,6 +20,8 @@
 #include "devices/nvram.hpp"
 #include "devices/beeper.hpp"
 
+#include "computer_state.pb.h"
+
 #include <map>
 #include <set>
 #include <memory>
@@ -107,12 +109,33 @@ public:
 	DECLDIR unsigned CPUClock() const;
 
     /**
+     * Writes a copy of the whole computer state
+     * \param[out] out ComputerState object to be write
+     */
+	DECLDIR void GetState(ComputerState* out) const;
+
+    /**
+     * Loads state from a ComputerState object
+     * \param ptr[in] ComputerState with the state information
+     * \return True if can read the State data from the pointer.
+     */
+    DECLDIR bool SetState (const ComputerState* in);
+
+    /**
      * Writes a copy of CPU state in a chunk of memory pointer by ptr.
-     * \param ptr Pointer were to write
-     * \param size Size of the chunk of memory were can write. If is
+     * @param ptr Pointer were to write
+     * @param size Size of the chunk of memory were can write. If is
      * sucesfull, it will be set to the size of the write data.
      */
-	DECLDIR void GetState(void* ptr, std::size_t size) const;
+    DECLDIR void GetCPUState (void* ptr, std::size_t& size) const;
+
+    /**
+     * Sets the CPU state.
+     * @param ptr Pointer were read the state information
+     * @param size Size of the chunk of memory were will read.
+     * @return True if can read the State data from the pointer.
+     */
+    DECLDIR bool SetCPUState (const void* ptr, std::size_t size);
 
     /**
      * Gets a pointer were is stored the ROM data
@@ -428,10 +451,10 @@ private:
     Beeper beeper; /// Real Time Clock
 
     std::set<DWord> breakpoints; /// Breakpoints list
-    bool breaking;                 /// The Virtual Computer is halted in a
-                                   // BreakPoint ?
+    bool breaking;               /// The Virtual Computer is halted in a
+                                 // BreakPoint ?
 
-    DWord last_break; /// Address tof the last breakpoint finded
+    DWord last_break;   /// Address of the last breakpoint finded
     bool recover_break; /// Flag to know if a recovered the temporaly erases
                         // break
 };
