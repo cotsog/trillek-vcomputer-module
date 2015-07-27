@@ -173,6 +173,95 @@ void TDADev::IACK () {
     do_vsync = false; // Acepted, so we can forgot now of sending it again
 }
 
+void TDADev::GetState (DeviceState* out) const {
+    Device::GetState(out);
+
+    out->set_a(this->a);
+    out->set_b(this->b);
+    out->set_d(this->d);
+    out->set_e(this->e);
+
+    out->clear_properties();
+
+    // int_msg
+    auto int_msg = out->add_properties();
+    int_msg->set_type(DeviceState_DeviceProperty_Type_INT);
+    int_msg->set_name("vsync_msg");
+    int_msg->set_ivalue(this->vsync_msg);
+
+    // doing interrupt?
+    auto do_int = out->add_properties();
+    do_int->set_type(DeviceState_DeviceProperty_Type_BOOL);
+    do_int->set_name("do_vsync");
+    do_int->set_bvalue(this->do_vsync);
+
+    // Cursor enabled?
+    auto cursor = out->add_properties();
+    cursor->set_type(DeviceState_DeviceProperty_Type_BOOL);
+    cursor->set_name("cursor");
+    cursor->set_bvalue(this->cursor);
+
+    // Blink enabled?
+    auto blink = out->add_properties();
+    blink->set_type(DeviceState_DeviceProperty_Type_BOOL);
+    blink->set_name("blink");
+    blink->set_bvalue(this->blink);
+
+    // buffer_ptr
+    if (this->buffer_ptr != 0) {
+        auto b_ptr = out->add_properties();
+        b_ptr->set_type(DeviceState_DeviceProperty_Type_INT);
+        b_ptr->set_name("buffer_ptr");
+        b_ptr->set_ivalue(this->buffer_ptr);
+    }
+
+    // font_ptr
+    if (this->font_ptr != 0) {
+        auto font_ptr = out->add_properties();
+        font_ptr->set_type(DeviceState_DeviceProperty_Type_INT);
+        font_ptr->set_name("font_ptr");
+        font_ptr->set_ivalue(this->font_ptr);
+    }
+
+} // GetState
+
+bool TDADev::SetState (const DeviceState* in) {
+    if (! Device::SetState(in)) {
+        return false;
+    }
+
+    this->a = in->a();
+    this->b = in->b();
+    this->d = in->d();
+    this->e = in->e();
+
+    for(int i=0; i < in->properties_size(); i++) {
+        auto prop = in->properties(i);
+        if (0 == prop.name().compare("vsync_msg")) {
+            // Interrupt message
+            this->vsync_msg = prop.ivalue();
+
+        } else if (0 == prop.name().compare("do_vsync")) {
+            // doing interrupt?
+            this->do_vsync = prop.bvalue();
+
+        } else if (0 == prop.name().compare("cursor")) {
+            this->cursor = prop.bvalue();
+
+        } else if (0 == prop.name().compare("blink")) {
+            this->blink = prop.bvalue();
+
+        } else if (0 == prop.name().compare("buffer_ptr")) {
+            this->buffer_ptr = prop.ivalue();
+
+        } else if (0 == prop.name().compare("font_ptr")) {
+            this->buffer_ptr = prop.ivalue();
+        }
+    }
+
+    return true;
+} // SetState
+
 bool TDADev::IsSyncDev() const {
     return false;
 }
