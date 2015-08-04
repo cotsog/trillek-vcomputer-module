@@ -32,6 +32,9 @@ before_install:
     - export PATH=$HOME/cmake/:$HOME/cmake/bin/:$PATH
     - ls -al $HOME/cmake/bin/
     - $HOME/cmake/bin/cmake --version
+    - pushd $HOME/cmake/bin/
+    - ./cmake --version
+    - popd
       # No ppa for GLFW3 at this time. Compiling by hand!
     - git clone --depth=100 https://github.com/glfw/glfw.git
     - cd glfw
