@@ -33,6 +33,7 @@ before_install:
     - pushd $HOME/cmake
     - find .
     - popd
+    - $HOME/cmake/bin/cmake --version
       # No ppa for GLFW3 at this time. Compiling by hand!
     - git clone --depth=100 https://github.com/glfw/glfw.git
     - cd glfw
